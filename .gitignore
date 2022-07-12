@@ -1,4 +1,5 @@
 *.exe
 *.cph
 *.vscode
+*.o
 tempCodeRunnerFile.cpp

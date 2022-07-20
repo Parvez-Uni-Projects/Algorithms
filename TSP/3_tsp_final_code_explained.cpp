@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> graph;  // The vector for storing user inputs
+#define vv vector<vector<int>>
+vv graph;  // The vector for storing user inputs
 queue<int> min_costs_queue; // for keeping track of coming and goind cost
 int user_infinity = 101;    // Incase of user input (max_weight + 2)
 int base_cost = 0;          // total path cost will finally be stored in here
@@ -9,9 +10,10 @@ int temp_cost = 0;          // temporary cost for queue
 int total_nodes = 5;        // total number of nodes
 int root = 0;               // root given by user
 
+
 // Creating a data structure to store by sequence of 
 // path_cost ,source node ,current node , reduced matrix
-typedef vector<vector<int>> myVector1;
+typedef vv myVector1;
 typedef pair<int, myVector1> visited_vector;
 typedef pair<int, visited_vector> predecessor;
 typedef pair<int, predecessor> base_costs;
@@ -79,7 +81,7 @@ void show_queue(queue<int> gq) // showing a queue
     cout << '\n';
 }
 
-void show_vector(vector<vector<int>> myVector) // showing a queue
+void show_vector(vv myVector) // showing a queue
 {
     for (int i = 0; i < myVector.size(); i++)
     {
@@ -91,17 +93,13 @@ void show_vector(vector<vector<int>> myVector) // showing a queue
     }
 }
 // setting row to infinity for source and setting column to infinity for destination
-vector<vector<int>> set_row_column_to_infinity(vector<vector<int>> myVector, int row, int column)
+vv set_row_column_to_infinity(vv myVector, int row, int column)
 {
     for (int i = 0; i < myVector.size(); i++)
     {
         for (int j = 0; j < myVector[i].size(); j++)
         {
-            if (i == row)
-            {
-                myVector[i][j] = 101;
-            }
-            else if (j == column)
+            if (i == row ||j == column)
             {
                 myVector[i][j] = 101;
             }
@@ -112,7 +110,7 @@ vector<vector<int>> set_row_column_to_infinity(vector<vector<int>> myVector, int
 }
 
 // function that is returning a reduced cost matrix
-vector<vector<int>> reduce_matrix(vector<vector<int>> myVector)
+vv reduce_matrix(vv myVector)
 {
     // finding minimum value of each row and pushing them into the min_cost_queue
     for (int i = 0; i < myVector.size(); i++)
@@ -179,7 +177,7 @@ vector<vector<int>> reduce_matrix(vector<vector<int>> myVector)
     return myVector;
 }
 
-void pq_push(int current_node, int source_node, vector<vector<int>> q_vector)
+void pq_push(int current_node, int source_node, vv q_vector)
 {
     int source_to_curr_cost = q_vector[source_node - 1][current_node - 1];
     q_vector[current_node - 1][root - 1] = user_infinity; // so that it can't get back until all nodes visited
@@ -210,7 +208,7 @@ void selling_route(int source_node)
         base_cost = pq.top().first * -1;
         cout << "Source is " << pq.top().second.first << endl;
 
-        vector<vector<int>> myVector = pq.top().second.second.second;
+        vv myVector = pq.top().second.second.second;
 
         pq = priority_queue<base_costs>(); // clearing the queue
 

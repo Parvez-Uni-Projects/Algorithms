@@ -2,7 +2,8 @@
 using namespace std;
 
 #define vv vector<vector<int>>
-vv graph;  // The vector for storing user inputs
+#define pb push_back
+vv graph;                   // The vector for storing user inputs
 queue<int> min_costs_queue; // for keeping track of coming and goind cost
 int user_infinity = 101;    // Incase of user input (max_weight + 2)
 int base_cost = 0;          // total path cost will finally be stored in here
@@ -10,8 +11,7 @@ int temp_cost = 0;          // temporary cost for queue
 int total_nodes = 5;        // total number of nodes
 int root = 0;               // root given by user
 
-
-// Creating a data structure to store by sequence of 
+// Creating a data structure to store by sequence of
 // path_cost ,source node ,current node , reduced matrix
 typedef vv myVector1;
 typedef pair<int, myVector1> visited_vector;
@@ -24,49 +24,49 @@ void sample_graph()
 {
     vector<int> g;
     vector<int> empty;
-    g.push_back(101); // edges where source is 1
-    g.push_back(20);
-    g.push_back(30);
-    g.push_back(10);
-    g.push_back(11);
+    g.pb(101); // edges where source is 1
+    g.pb(20);
+    g.pb(30);
+    g.pb(10);
+    g.pb(11);
 
-    graph.push_back(g);
+    graph.pb(g);
     g = empty; // clearing the vector g after pushing it into the graph
 
-    g.push_back(15); // edges where source is 2
-    g.push_back(101);
-    g.push_back(16);
-    g.push_back(4);
-    g.push_back(2);
+    g.pb(15); // edges where source is 2
+    g.pb(101);
+    g.pb(16);
+    g.pb(4);
+    g.pb(2);
 
-    graph.push_back(g);
+    graph.pb(g);
     g = empty;
 
-    g.push_back(3); // edges where source is 3
-    g.push_back(5);
-    g.push_back(101);
-    g.push_back(2);
-    g.push_back(4);
+    g.pb(3); // edges where source is 3
+    g.pb(5);
+    g.pb(101);
+    g.pb(2);
+    g.pb(4);
 
-    graph.push_back(g);
+    graph.pb(g);
     g = empty;
 
-    g.push_back(19);//edges where source is 4
-    g.push_back(6);
-    g.push_back(18);
-    g.push_back(101);
-    g.push_back(3);
+    g.pb(19); // edges where source is 4
+    g.pb(6);
+    g.pb(18);
+    g.pb(101);
+    g.pb(3);
 
-    graph.push_back(g);
+    graph.pb(g);
     g = empty;
 
-    g.push_back(16); //edges where source is 5
-    g.push_back(4);
-    g.push_back(7);
-    g.push_back(16);
-    g.push_back(101);
+    g.pb(16); // edges where source is 5
+    g.pb(4);
+    g.pb(7);
+    g.pb(16);
+    g.pb(101);
 
-    graph.push_back(g);
+    graph.pb(g);
     g = empty;
 }
 
@@ -99,7 +99,7 @@ vv set_row_column_to_infinity(vv myVector, int row, int column)
     {
         for (int j = 0; j < myVector[i].size(); j++)
         {
-            if (i == row ||j == column)
+            if (i == row || j == column)
             {
                 myVector[i][j] = 101;
             }

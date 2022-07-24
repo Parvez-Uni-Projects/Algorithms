@@ -18,6 +18,7 @@ typedef pair<int, myVector1> visited_vector;
 typedef pair<int, visited_vector> predecessor;
 typedef pair<int, predecessor> base_costs;
 priority_queue<base_costs> pq;
+vector<priority_queue<base_costs>> route_details; // for storing the path details
 
 // for better understanding taking pre defined complete graph
 void sample_graph()
@@ -92,6 +93,28 @@ void show_vector(vv myVector) // showing a queue
         cout << endl;
     }
 }
+void show_route_details()
+{
+    cout << "\n\n****** Details of each path is down below ******\n"
+         << endl;
+
+    int start = 0;
+    int stop = total_nodes - 1;
+    for (int i = 1; i <= 5; i++)
+    {
+
+        cout << "From root " << i << endl;
+
+        for (int j = start; j < stop; j++)
+        {
+            cout << "Going to " << route_details[j].top().second.second.first << " With cost ";
+            cout << route_details[j].top().first * -1 << " " << endl;
+        }
+        cout << endl;
+        start += total_nodes - 1;
+        stop += total_nodes - 1;
+    }
+}
 // setting row to infinity for source and setting column to infinity for destination
 vv set_row_column_to_infinity(vv myVector, int row, int column)
 {
@@ -101,7 +124,7 @@ vv set_row_column_to_infinity(vv myVector, int row, int column)
         {
             if (i == row || j == column)
             {
-                myVector[i][j] = 101;
+                myVector[i][j] = user_infinity;
             }
         }
     }
@@ -191,7 +214,7 @@ void pq_push(int current_node, int source_node, vv q_vector)
 void selling_route(int source_node)
 {
 
-    cout << "\n\n***** THE PATH IS DOWN BELOW *****" << endl;
+    cout << "\n\n***** THE PATH IS DOWN BELOW FOR ROOT " << root << "  *****" << endl;
 
     // initially pushing all the nodes except the source to the queue
     for (int i = 1; i <= total_nodes; i++)
@@ -206,9 +229,11 @@ void selling_route(int source_node)
     {
         current_source_node = pq.top().second.second.first;
         base_cost = pq.top().first * -1;
-        cout << "Source is " << pq.top().second.first << endl;
+        // cout << "Source is " << pq.top().second.first << endl;
+        cout << pq.top().second.first << "->";
 
         vv myVector = pq.top().second.second.second;
+        route_details.pb(pq);
 
         pq = priority_queue<base_costs>(); // clearing the queue
 
@@ -221,28 +246,95 @@ void selling_route(int source_node)
         }
     }
 
-    cout << "End node is " << current_source_node << endl;
-    cout << "\n\nThis Path's cost is " << base_cost;
+    cout << current_source_node << endl;
+    cout << "\n"
+         << base_cost << " is the total path cost  ";
 }
 
 int main()
 {
-    int source_node = 4;
-    root = source_node; // setting the root as source node for using in other functions
-
+    int source_node = 1;
+    root = source_node;           // setting the root as source node for using in other functions
     sample_graph();               // creating the graph
     graph = reduce_matrix(graph); // finding the reduced matrix
     show_vector(graph);
     int first_reduced_base_cost = base_cost;
     cout << "The base cost is   " << base_cost << endl;
-    cout << "The source node is " << source_node << endl;
-
+    // cout << "The source node is " << source_node << endl;
     // selling_route(source_node); // solving the graph for one source only
-
     for (int i = 1; i <= total_nodes; i++) // here source is dynamic to find way from any source
     {
         root = i;
         base_cost = first_reduced_base_cost;
         selling_route(i);
+        cout << endl;
     }
+    // path details are stored in in route_details as in queue .can access all of them via modifying
+    show_route_details();
 }
+
+    101     10     17      0      1 
+    12    101     11      2      0
+     0      3    101      0      2
+    15      3     12    101      0
+    11      0      0     12    101
+The base cost is   25
+
+
+***** THE PATH IS DOWN BELOW FOR ROOT 1  *****
+1->4->2->5->3
+
+28 is the total path cost
+
+
+***** THE PATH IS DOWN BELOW FOR ROOT 2  *****
+2->5->3->1->4
+
+28 is the total path cost
+
+
+***** THE PATH IS DOWN BELOW FOR ROOT 3  *****
+3->1->4->2->5
+
+28 is the total path cost
+
+
+***** THE PATH IS DOWN BELOW FOR ROOT 4  *****
+4->5->3->1->2
+
+37 is the total path cost
+
+
+***** THE PATH IS DOWN BELOW FOR ROOT 5  *****
+5->3->1->4->2
+
+28 is the total path cost
+
+
+****** Details of each path is down below ******
+
+From root 1
+Going to 4 With cost 25
+Going to 2 With cost 28
+Going to 5 With cost 28 
+Going to 3 With cost 28
+
+From root 2
+Going to 5 With cost 28
+Going to 3 With cost 28
+Going to 1 With cost 28
+Going to 4 With cost 25
+Going to 2 With cost 28
+Going to 5 With cost 28
+
+From root 4
+Going to 5 With cost 27
+Going to 3 With cost 30
+Going to 1 With cost 37
+Going to 2 With cost 37
+
+From root 5
+Going to 3 With cost 28
+Going to 1 With cost 28
+Going to 4 With cost 28
+Going to 2 With cost 28

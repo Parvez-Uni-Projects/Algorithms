@@ -127,14 +127,24 @@ int main()
     show_vector(user_input);
     cout << sum_of_all << endl;
 
-    jumbo.push_back(mp(0, mp(1, mp(sum_of_all, route))));
+    if(sum_of_all < sum_wanted)
+    {
+
+        cout << "Wanted sum is greater then sets sum\nNot possible to find the sum " << sum_wanted <<endl;
+    }
+    else
+    {
+        jumbo.push_back(mp(0, mp(1, mp(sum_of_all, route))));
     s.push(jumbo[0]);
 
     push_into_stack();
+    }
+
+
 }
 
 /*
-8
-5 10 12 13 15 18 3 4
-4
+6
+5 10 12 13 15 18
+80
 */

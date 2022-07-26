@@ -83,7 +83,7 @@ void push_into_stack()
 void set_min_max()
 {
 
-    minimum_possible_sum = *min(user_input.begin(), user_input.end());
+    minimum_possible_sum = *min_element(user_input.begin(), user_input.end());
     cout << "Maximum possible sum is  " << maximum_possible_sum << endl;
     cout << "Minimum possible sum is  " << minimum_possible_sum << endl;
 }

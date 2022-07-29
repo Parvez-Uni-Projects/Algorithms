@@ -104,11 +104,11 @@ void push_into_stack()
     int curr_sum;
     v_int curr_route;
     int val_pos;
-
+    int i = 1;
     while (!s.empty())
     {
-
-        if (s.top().first < sum_wanted && s.top().second.second.first != 0)
+     
+         if ((s.top().first < sum_wanted && s.top().second.second.first != 0 ) || i== 1)
         {
             curr_key = s.top().first;
             curr_level = s.top().second.first;
@@ -128,6 +128,7 @@ void push_into_stack()
             curr_route[val_pos] = 1;
 
             s.push(mp(curr_key, mp(curr_level, mp(curr_sum, curr_route))));
+            i++;
         }
         else if (s.top().first == sum_wanted)
         {
@@ -139,6 +140,7 @@ void push_into_stack()
         {
             s.pop();
         }
+        //cout << "hello world" << endl;
     }
 }
 
@@ -164,6 +166,7 @@ int main()
     {
         cout << "Wanted sum is out of range\nNot possible to find the sum " << sum_wanted << endl;
     }
+    
     else
     {
         switch (case_number)
@@ -183,6 +186,20 @@ int main()
             break;
         case 4:
             cout << "Case number 4 has been hit" << endl;
+            sum_wanted *= -1;
+
+            cout << "Sum wanted is " << sum_wanted << endl;
+            sum_of_all *= -1;
+            cout << "Sum of all is " << sum_of_all << endl;
+
+            for (int i = 0; i < user_input.size(); i++)
+            {
+                user_input[i].first *= -1;
+            }
+
+            sort(user_input.begin(), user_input.end());
+
+            push_into_stack();
             break;
 
         default:

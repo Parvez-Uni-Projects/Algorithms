@@ -46,25 +46,6 @@ void take_user_input(int n)
     cin >> sum_wanted;
 }
 
-int check_case_number()
-{
-
-    int case_number = 1;
-
-    for (int i = 0; i < user_input.size(); i++)
-    {
-        if (case_number == 1 && user_input[i].first < 0)
-        {
-            case_number = 3;
-            break;
-        }
-    }
-    if (sum_wanted < 0)
-    {
-        case_number += 1;
-    }
-    return case_number;
-}
 void set_min_max(vector<pair<int, int>> v)
 {
     if (negative_count == 0)
@@ -147,25 +128,17 @@ void push_into_stack()
         {
             s.pop();
         }
-        // cout << "hello world" << endl;
+     
     }
 }
 
 int main()
 {
     int n;
-    // cout << "Total elements of set " << endl;
+
     cin >> n;
 
     take_user_input(n);
-    // sort(user_input.begin(), user_input.end());
-
-    int case_number = check_case_number();
-
-    // case_number = 1  when elements of set is positive and wanted_sum is positive
-    // case_number = 2  when elements of set is positive and wanted_sum is negative
-    // case_number = 1  when elements of set has negative and wanted_sum is positive
-    // case_number = 1  when elements of set has negative and wanted_sum is negative
 
     set_min_max(user_input);
 
@@ -176,15 +149,10 @@ int main()
 
     else
     {
-        if (case_number == 4)
+        if (sum_wanted < 0)
         {
-
-            cout << "Case number 4 has been hit" << endl;
             sum_wanted *= -1;
-            cout << "Sum wanted is " << sum_wanted << endl;
             sum_of_all *= -1;
-            cout << "Sum of all is " << sum_of_all << endl;
-
             for (int i = 0; i < user_input.size(); i++)
             {
                 user_input[i].first *= -1;

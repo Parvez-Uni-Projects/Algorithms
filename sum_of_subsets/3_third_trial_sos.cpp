@@ -11,6 +11,7 @@ int maximum_possible_sum = 0;
 int minimum_possible_sum = 0;
 
 int negative_count = 0;
+int positive_count = 0;
 
 typedef vector<int> v_int;
 typedef pair<int, v_int> vi;
@@ -34,6 +35,7 @@ void take_user_input(int n)
         }
         else
         {
+            positive_count += 1;
             maximum_possible_sum += x;
         }
         sum_of_all += x;
@@ -73,6 +75,11 @@ void set_min_max(vector<pair<int, int>> v)
 
     else
         minimum_possible_sum = sum_of_negative;
+    if (positive_count == 0)
+    {
+        sort(v.begin(), v.end(), greater<>());
+        maximum_possible_sum = v[0].first;
+    }
 
     cout << "Maximum possible sum is  " << maximum_possible_sum << endl;
     cout << "Minimum possible sum is  " << minimum_possible_sum << endl;
@@ -107,8 +114,8 @@ void push_into_stack()
     int i = 1;
     while (!s.empty())
     {
-     
-         if ((s.top().first < sum_wanted && s.top().second.second.first != 0 ) || i== 1)
+
+        if ((s.top().first < sum_wanted && s.top().second.second.first != 0) || i == 1)
         {
             curr_key = s.top().first;
             curr_level = s.top().second.first;
@@ -140,7 +147,7 @@ void push_into_stack()
         {
             s.pop();
         }
-        //cout << "hello world" << endl;
+        // cout << "hello world" << endl;
     }
 }
 
@@ -166,28 +173,14 @@ int main()
     {
         cout << "Wanted sum is out of range\nNot possible to find the sum " << sum_wanted << endl;
     }
-    
+
     else
     {
-        switch (case_number)
+        if (case_number == 4)
         {
-        case 1:
-            cout << "All elements of set are positive and wanted sum is positive , case = 1" << endl;
-            push_into_stack();
-            break;
-        case 2:
-            cout << "Wanted sum is out of range no solution is possible" << endl;
-            break;
-        case 3:
-            cout << "Has negative elements in set and wanted sum is positive" << endl;
-            sort(user_input.begin(), user_input.end());
-            push_into_stack();
 
-            break;
-        case 4:
             cout << "Case number 4 has been hit" << endl;
             sum_wanted *= -1;
-
             cout << "Sum wanted is " << sum_wanted << endl;
             sum_of_all *= -1;
             cout << "Sum of all is " << sum_of_all << endl;
@@ -196,14 +189,8 @@ int main()
             {
                 user_input[i].first *= -1;
             }
-
-            sort(user_input.begin(), user_input.end());
-
-            push_into_stack();
-            break;
-
-        default:
-            break;
         }
+        sort(user_input.begin(), user_input.end());
+        push_into_stack();
     }
 }

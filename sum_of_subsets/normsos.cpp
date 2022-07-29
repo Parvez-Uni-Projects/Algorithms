@@ -64,7 +64,7 @@ void push_into_stack()
         }
         else
         {
-            cout << "\ni = " << i << endl;
+            //cout << "\ni = " << i << endl;
             // if (s.top().first < sum_wanted)
             //{
             curr_key = s.top().first;

@@ -39,13 +39,12 @@ void show_graph(vector<ROW> ADJ_M)
 }
 void take_input()
 {
-    //cout << "Total number of nodes " << endl;
+    // cout << "Total number of nodes " << endl;
     cin >> total_nodes;
     adj = initialize_adj(adj);
 
-    
     int total_edges;
-    //cout << "Total number of edges" << endl;
+    // cout << "Total number of edges" << endl;
     cin >> total_edges;
     int temp_source;
     int temp_destination;
@@ -53,13 +52,13 @@ void take_input()
 
     for (int i = 0; i < total_edges; i++)
     {
-        //cout << "Edge number " << i + 1 << endl;
-       // cout << "Source :" << endl;
+        // cout << "Edge number " << i + 1 << endl;
+        // cout << "Source :" << endl;
         cin >> temp_source;
-       // cout << "Destination :" << endl;
+        // cout << "Destination :" << endl;
         cin >> temp_destination;
 
-        //cout << "Destination :" << endl;
+        // cout << "Destination :" << endl;
         cin >> temp_weight;
 
         if (temp_source != temp_destination)
@@ -68,10 +67,41 @@ void take_input()
             adj[temp_source - 1][temp_destination - 1].second = temp_source;
         }
 
-       // cout << endl;
+        // cout << endl;
     }
+}
 
-    
+vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
+{
+    int temp_cost;
+    int total_hit = 0;
+    for (int i = 0; i < rank; i++)
+    {
+        for (int j = 0; j < ADJ_M.size(); j++)
+        {
+            if (i != j)
+            {
+                for (int k = 0; k < ADJ_M.size(); k++)
+                {
+                    if (j != k && k != i)
+                    {
+                        total_hit++;
+                        temp_cost = min(ADJ_M[j][k].first, ADJ_M[j][i].first + ADJ_M[i][k].first);
+                        if (temp_cost < ADJ_M[j][k].first)
+                        {
+                            ADJ_M[j][k].first = temp_cost;
+                            ADJ_M[j][k].second = ADJ_M[i][k].second;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    cout << "Finding for when root is equal to 1\n\n"
+         << endl;
+    show_graph(ADJ_M);
+
+    cout << "Total hitted value is " << total_hit << endl;
 }
 
 int main()
@@ -79,6 +109,7 @@ int main()
 
     take_input();
     show_graph(adj);
+    findPath(adj, 3);
 }
 
 /*

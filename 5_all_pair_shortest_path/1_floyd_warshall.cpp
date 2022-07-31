@@ -71,6 +71,10 @@ void take_input()
     }
 }
 
+void show_shortest_path(vector<ROW> ADJ_M, int source, int destination)
+{
+    cout << "its all mikeyes fault " << endl;
+}
 vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
 {
     int temp_cost;
@@ -97,11 +101,22 @@ vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
             }
         }
     }
-    cout << "Finding for when root is equal to 1\n\n"
-         << endl;
+    cout << "The final reduced matrix using " << rank << " nodes is " << endl;
     show_graph(ADJ_M);
+    for (int i = 0; i < ADJ_M.size(); i++)
+    {
 
-    cout << "Total hitted value is " << total_hit << endl;
+        for (int j = 0; j < ADJ_M.size(); j++)
+        {
+            if (i != j)
+            {
+                cout << "Path from " << i + 1 << " to " << j + 1 << " is " << endl;
+                show_shortest_path(ADJ_M, i, j);
+            }
+        }
+    }
+
+    // cout << "Total hitted value is " << total_hit << endl;
 }
 
 int main()
@@ -109,7 +124,7 @@ int main()
 
     take_input();
     show_graph(adj);
-    findPath(adj, 3);
+    findPath(adj, 5);
 }
 
 /*

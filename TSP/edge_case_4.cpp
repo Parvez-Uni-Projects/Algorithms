@@ -97,7 +97,7 @@ void show_vector(vv myVector) // showing a queue
 void show_route_details()
 {
 
-   pathV final_path = pq.top().second.second.second.second;
+    pathV final_path = pq.top().second.second.second.second;
     int final_cost = pq.top().first;
 
     for (int i = 0; i < final_path.size(); i++)
@@ -230,9 +230,6 @@ void selling_route(int source_node)
     {
         current_source_node = pq.top().second.second.first;
         base_cost = pq.top().first * -1;
-        // cout << "Source is " << pq.top().second.first << endl;
-        // cout << pq.top().second.first << "->";
-
         p_vector = pq.top().second.second.second.second;
         vv myVector = pq.top().second.second.second.first;
         pq.pop();
@@ -272,4 +269,3 @@ int main()
         cout << endl;
     }
 }
-

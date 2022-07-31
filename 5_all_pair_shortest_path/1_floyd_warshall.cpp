@@ -102,6 +102,27 @@ void show_shortest_path(vector<ROW> ADJ_M, int source, int destination)
     cout << endl;
 }
 
+void show_lowest_cost_destination(vector<ROW> ADJ_M, int source)
+{
+    cout << "Lowest costly path destination is " << endl;
+
+    int temp_min = USER_INFINITY;
+    int min_node = 0;
+
+    for (int i = 0; i < ADJ_M[source].size() ;i++)
+    {
+        if (i!= source)
+        {
+            if (temp_min > ADJ_M[source][i].first)
+            {
+                temp_min = ADJ_M[source][i].first;
+                min_node = i;
+            }
+        }
+    }
+    cout << min_node+1 <<endl;
+    cout <<endl;
+}
 vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
 {
     int temp_cost;
@@ -130,17 +151,24 @@ vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
     }
     cout << "The final reduced matrix using " << rank << " nodes is " << endl;
     show_graph(ADJ_M);
+    // for (int i = 0; i < ADJ_M.size(); i++)
+    // {
+
+    //     for (int j = 0; j < ADJ_M.size(); j++)
+    //     {
+    //         if (i != j)
+    //         {
+    //             cout << "Path from " << i + 1 << " to " << j + 1 << " is " << endl;
+    //             show_shortest_path(ADJ_M, i, j);
+    //         }
+    //     }
+    // }
+    cout << "Lowest cost destination "  << ADJ_M.size()<< endl;
+
     for (int i = 0; i < ADJ_M.size(); i++)
     {
-
-        for (int j = 0; j < ADJ_M.size(); j++)
-        {
-            if (i != j)
-            {
-                cout << "Path from " << i + 1 << " to " << j + 1 << " is " << endl;
-                show_shortest_path(ADJ_M, i, j);
-            }
-        }
+        cout << "From " << i+1 << endl;
+        show_lowest_cost_destination(ADJ_M, i);
     }
 
     // cout << "Total hitted value is " << total_hit << endl;

@@ -73,8 +73,12 @@ void take_input()
 
 void show_shortest_path(vector<ROW> ADJ_M, int source, int destination)
 {
-    cout << "its all mikeyes fault " << endl;
+    //cout << "its all mikeyes fault " << endl;
+    cout << "Cost = " << ADJ_M[source][destination].first << endl;
+    cout << endl;
 }
+
+
 vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
 {
     int temp_cost;

@@ -1,28 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef vector<int> ROW;
+typedef vector<pair<int, int>> ROW;
 vector<ROW> adj;
-int total_nodes ;
-int USER_INFINITY = 101;
+int total_nodes;
+int USER_INFINITY = 9;
 
-void initialize_adj()
+vector<ROW> initialize_adj(vector<ROW> ADJ_M)
 {
     for (int i = 0; i < total_nodes; i++)
     {
-        ROW temp(total_nodes, USER_INFINITY);
-        adj.push_back(temp);
+        ROW temp(total_nodes, make_pair(USER_INFINITY, USER_INFINITY));
+        ADJ_M.push_back(temp);
     }
+    for (int i = 0; i < ADJ_M.size(); i++)
+    {
+        for (int j = 0; j < ADJ_M[i].size(); j++)
+        {
+            if (i == j)
+                ADJ_M[i][j].first = 0;
+        }
+        cout << endl;
+    }
+    return ADJ_M;
 }
 
-void show_graph(vector<vector<int>> ADJ_M)
+void show_graph(vector<ROW> ADJ_M)
 {
 
     for (int i = 0; i < ADJ_M.size(); i++)
     {
         for (int j = 0; j < ADJ_M[i].size(); j++)
         {
-            cout << setw(5) << ADJ_M[i][j] << " ";
+            cout << setw(7) << ADJ_M[i][j].first << "/" << ADJ_M[i][j].second;
         }
         cout << endl;
     }
@@ -31,7 +41,7 @@ void take_input()
 {
     cout << "Total number of nodes " << endl;
     cin >> total_nodes;
-    initialize_adj();
+    adj = initialize_adj(adj);
 
     cout << adj.size() << endl;
     show_graph(adj);
@@ -54,7 +64,10 @@ void take_input()
         cin >> temp_weight;
 
         if (temp_source != temp_destination)
-            adj[temp_source - 1][temp_destination - 1] = temp_weight;
+        {
+            adj[temp_source - 1][temp_destination - 1].first = temp_weight;
+            adj[temp_source - 1][temp_destination - 1].second = temp_source;
+        }
 
         cout << endl;
     }

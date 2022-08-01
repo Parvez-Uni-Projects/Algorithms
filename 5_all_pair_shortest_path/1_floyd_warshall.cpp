@@ -109,9 +109,9 @@ void show_lowest_cost_destination(vector<ROW> ADJ_M, int source)
     int temp_min = USER_INFINITY;
     int min_node = 0;
 
-    for (int i = 0; i < ADJ_M[source].size() ;i++)
+    for (int i = 0; i < ADJ_M[source].size(); i++)
     {
-        if (i!= source)
+        if (i != source)
         {
             if (temp_min > ADJ_M[source][i].first)
             {
@@ -120,10 +120,44 @@ void show_lowest_cost_destination(vector<ROW> ADJ_M, int source)
             }
         }
     }
-    cout << min_node+1 <<endl;
-    cout <<endl;
+    cout << min_node + 1 << endl;
+    cout << endl;
 }
-vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
+
+bool exits_negative_cycle(vector<ROW> ADJ_M)
+{
+    for (int i = 0; i < ADJ_M.size(); i++)
+    {
+        for (int j = 0; j < ADJ_M.size(); j++)
+        {
+
+            for (int k = 0; k < ADJ_M.size(); k++)
+            {
+                int temp = (ADJ_M[j][i].first + ADJ_M[i][k].first);
+                cout << temp  <<endl;
+                if (temp < ADJ_M[j][k].first)
+                {
+                    ADJ_M[j][k].first = temp;
+                }
+             
+            }
+               cout <<endl;
+        }
+    }
+    show_graph(ADJ_M);
+    for (int i = 0; i < ADJ_M.size(); i++)
+    {
+
+        if (ADJ_M[i][i].first < 0)
+        {
+
+            return true;
+        }
+    }
+    return false;
+}
+
+void findPath(vector<ROW> ADJ_M, int rank)
 {
     int temp_cost;
     int total_hit = 0;
@@ -145,12 +179,13 @@ vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
                             ADJ_M[j][k].second = ADJ_M[i][k].second;
                         }
                     }
+                    
                 }
             }
         }
     }
     cout << "The final reduced matrix using " << rank << " nodes is " << endl;
-    show_graph(ADJ_M);
+     show_graph(ADJ_M);
     // for (int i = 0; i < ADJ_M.size(); i++)
     // {
 
@@ -163,23 +198,29 @@ vector<ROW> findPath(vector<ROW> ADJ_M, int rank)
     //         }
     //     }
     // }
-    cout << "Lowest cost destination "  << ADJ_M.size()<< endl;
+    // cout << "Lowest cost destination " << ADJ_M.size() << endl;
 
-    for (int i = 0; i < ADJ_M.size(); i++)
-    {
-        cout << "From " << i+1 << endl;
-        show_lowest_cost_destination(ADJ_M, i);
-    }
+    // for (int i = 0; i < ADJ_M.size(); i++)
+    // {
+    //     cout << "From " << i + 1 << endl;
+    //     show_lowest_cost_destination(ADJ_M, i);
+    // }
 
-    // cout << "Total hitted value is " << total_hit << endl;
+    if (exits_negative_cycle(ADJ_M))
+        cout << "YES";
+    else
+        cout << "NO";
+
+    
 }
 
 int main()
 {
-
+    int rank;
+    cin >> rank;
     take_input();
-    show_graph(adj);
-    findPath(adj, 5);
+    //show_graph(adj);
+    findPath(adj, rank);
 }
 
 /*
@@ -194,5 +235,14 @@ int main()
 4 1 2
 4 3 -5
 5 4 6
+
+
+
+4
+4
+1 2 1
+2 3 -1
+3 4 -1
+4 1 -1
 
 */

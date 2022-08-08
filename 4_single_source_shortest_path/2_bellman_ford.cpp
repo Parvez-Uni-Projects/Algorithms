@@ -35,8 +35,7 @@ void sample_graph()
     temp.push(make_pair(-1, 3));
     temp.push(make_pair(-10, 6));
 
-    graph.push_back(temp);
-    temp = empty;
+
 }
 
 int main()

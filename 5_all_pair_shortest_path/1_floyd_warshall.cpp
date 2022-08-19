@@ -99,7 +99,7 @@ void show_shortest_path(vector<ROW> ADJ_M, int source, int destination)
         s.pop();
     }
     cout << endl;
-    cout << endl;
+    
 }
 
 void show_lowest_cost_destination(vector<ROW> ADJ_M, int source)
@@ -124,38 +124,7 @@ void show_lowest_cost_destination(vector<ROW> ADJ_M, int source)
     cout << endl;
 }
 
-bool exits_negative_cycle(vector<ROW> ADJ_M)
-{
-    for (int i = 0; i < ADJ_M.size(); i++)
-    {
-        for (int j = 0; j < ADJ_M.size(); j++)
-        {
 
-            for (int k = 0; k < ADJ_M.size(); k++)
-            {
-                int temp = (ADJ_M[j][i].first + ADJ_M[i][k].first);
-                cout << temp  <<endl;
-                if (temp < ADJ_M[j][k].first)
-                {
-                    ADJ_M[j][k].first = temp;
-                }
-             
-            }
-               cout <<endl;
-        }
-    }
-    show_graph(ADJ_M);
-    for (int i = 0; i < ADJ_M.size(); i++)
-    {
-
-        if (ADJ_M[i][i].first < 0)
-        {
-
-            return true;
-        }
-    }
-    return false;
-}
 
 void findPath(vector<ROW> ADJ_M, int rank)
 {
@@ -204,14 +173,7 @@ void findPath(vector<ROW> ADJ_M, int rank)
     // {
     //     cout << "From " << i + 1 << endl;
     //     show_lowest_cost_destination(ADJ_M, i);
-    // }
-
-    if (exits_negative_cycle(ADJ_M))
-        cout << "YES";
-    else
-        cout << "NO";
-
-    
+    // }  
 }
 
 int main()
@@ -222,27 +184,3 @@ int main()
     //show_graph(adj);
     findPath(adj, rank);
 }
-
-/*
-5
-9
-1 2 3
-1 5 -4
-1 3 8
-2 5 7
-2 4 1
-3 2 4
-4 1 2
-4 3 -5
-5 4 6
-
-
-
-4
-4
-1 2 1
-2 3 -1
-3 4 -1
-4 1 -1
-
-*/

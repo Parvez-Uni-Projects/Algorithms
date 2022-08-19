@@ -81,4 +81,21 @@ int main()
     cout << "\n\nLongest common subsequence is \n"
          << result << "\nLength is\n"
          << result.size() << endl;
+
+    cout << "Number of Longest common subsequences " << endl;
+
+    vector<pair<int, int>> positions;
+
+    for (int i = 0; i < vv.size(); i++)
+    {
+        for (int j = 0; j < vv[i].size(); j++)
+        {
+
+            if (vv[i][j] == result.size() && bb[i][j] == 1)
+            {
+                cout << vv[i][j] << " " << i << " " << j << endl;
+                positions.push_back(make_pair(i, j));
+            }
+        }
+    }
 }

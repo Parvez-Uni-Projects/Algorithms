@@ -1,15 +1,21 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 vector<pair<vector<int>, vector<vector<int>>>> store_result;
-//int count_rep = 1;
+// int count_rep = 1;
 void print_matrix(vector<vector<int>> vv)
 {
-    for (int i = 1; i < vv.size(); i++)
-    {
-        for (int j = 1; j < vv[i].size(); j++)
-            cout << fixed << setw(6) << vv[i][j] << " ";
+    for (int i = 1; i < vv.size(); i++) {
+        for (int j = 1; j < vv[i].size(); j++) {
+            if (vv[i][j] == 1)
+                cout << "Q"
+                     << " ";
+            else
+                cout << "."
+                     << " ";
+            // cout << fixed << setw(6) << vv[i][j] << " ";
+        }
+
         cout << endl;
     }
 }
@@ -31,8 +37,8 @@ void print_position(vector<int> v)
 void print_vector(vector<int> v)
 {
     cout << endl;
-    for (int i = 1; i < v.size(); i++)
-    {
+    for (int i = 1; i < v.size(); i++) {
+
         cout << v[i] << " ";
     }
 
@@ -41,8 +47,7 @@ void print_vector(vector<int> v)
 
 bool Place(int k, int i, vector<int> x)
 {
-    for (int j = 1; j <= k - 1; j++)
-    {
+    for (int j = 1; j <= k - 1; j++) {
         if (x[j] == i || abs(x[j] - i) == abs(j - k))
             return false;
     }
@@ -51,11 +56,9 @@ bool Place(int k, int i, vector<int> x)
 
 void NQueens(int k, int n, vector<int> x)
 {
-    //count_rep++;
-    for (int i = 1; i <= n; i++)
-    {
-        if (Place(k, i, x))
-        {
+    // count_rep++;
+    for (int i = 1; i <= n; i++) {
+        if (Place(k, i, x)) {
             x[k] = i;
             if (k == n)
                 print_vector(x);
@@ -82,6 +85,4 @@ int main()
     cout << store_result.size() << endl;
     // cout << "Total number recursive call is " << endl;
     // cout << count_rep << endl;
-
-
 }

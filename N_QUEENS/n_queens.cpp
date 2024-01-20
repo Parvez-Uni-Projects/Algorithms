@@ -5,18 +5,14 @@ using namespace std;
 // This below vector is used to store the result of the solution board
 vector<pair<vector<int>, vector<vector<int>>>> store_result;
 // int count_rep = 1;
+int total_solution = 0;
 
 // This function is used to print the matrix of the solution board
 void print_matrix(vector<vector<int>> vv)
 {
     for (int i = 1; i < vv.size(); i++) {
         for (int j = 1; j < vv[i].size(); j++) {
-            if (vv[i][j] == 1)
-                cout << "Q"
-                     << " ";
-            else
-                cout << "."
-                     << " ";
+            cout << (vv[i][j] ? "Q " : ". ");
             // cout << fixed << setw(6) << vv[i][j] << " ";
         }
 
@@ -52,7 +48,7 @@ void print_vector(vector<int> v)
         cout << v[i] << " ";
     }
 
-    print_position(v);
+    //print_position(v);
 }
 
 
@@ -73,6 +69,9 @@ bool Place(int k, int i, vector<int> x)
 // It is used to find the solution board
 // It is used to find the total number of solution
 
+// the parameter k is used to check the position of the queen in the solution board
+// the parameter n is used to check the number of queens
+// the parameter x is used to store the position of the queen in the solution board
 void NQueens(int k, int n, vector<int> x)
 {
     // count_rep++;
@@ -105,7 +104,7 @@ int main()
     else
         NQueens(1, n, result);
 
-    cout << "Total number of solution is " << endl;
+    cout << "\nTotal number of solution is " << endl;
     cout << store_result.size() << endl;
     // cout << "Total number recursive call is " << endl;
     // cout << count_rep << endl;
